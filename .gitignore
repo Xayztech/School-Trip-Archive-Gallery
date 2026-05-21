@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.local
+.env.*.local
+dist/
+build/
+*.log
+logs/
+.DS_Store
+.vscode/
+.idea/
+vercel.json
+auth/accounts/accounts.json
+public/pv-img/*
+!public/pv-img/.gitkeep
+public/img/*
+!public/img/.gitkeep

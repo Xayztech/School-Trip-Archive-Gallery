@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Trip Archive Gallery - Pilih Mode</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/auth.css">
+  <style>
+    :root {
+      --primary: #00ff88;
+      --secondary: #ff006e;
+      --accent: #00d4ff;
+      --dark: #0a0e27;
+      --darker: #050812;
+      --gray: #8892b0;
+      --light: #f0f0f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+      color: var(--light);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      z-index: 10;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { text-shadow: 0 0 20px rgba(0, 255, 136, 0.5); }
+      50% { text-shadow: 0 0 40px rgba(0, 255, 136, 0.8); }
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--gray);
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+    }
+
+    .mode-selector {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 40px 0;
+    }
+
+    .mode-card {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+      border: 2px solid rgba(0, 255, 136, 0.3);
+      border-radius: 15px;
+      padding: 30px 40px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      min-width: 200px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .mode-card:hover {
+      border-color: var(--primary);
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+      transform: translateY(-5px);
+    }
+
+    .mode-card i {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .mode-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .mode-card p {
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: var(--darker);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+      transform: scale(1.05);
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    /* Background animation */
+    .bg-animation {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      opacity: 0.1;
+      filter: blur(40px);
+    }
+
+    .blob-1 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      top: -100px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .blob-2 {
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(45deg, var(--secondary), var(--primary));
+      border-radius: 50%;
+      bottom: -50px;
+      left: -50px;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(50px, 50px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
+
+  <div class="container">
+    <h1>🎓 SCHOOL TRIP ARCHIVE GALLERY</h1>
+    <p class="subtitle">Pilih Mode Untuk Memulai</p>
+
+    <div class="mode-selector">
+      <div class="mode-card" onclick="goToGuest()">
+        <span style="font-size: 2.5rem;">👤</span>
+        <h3>Guest Mode</h3>
+        <p>Lihat galeri tanpa login</p>
+        <button class="btn">Masuk Sebagai Guest</button>
+      </div>
+
+      <div class="mode-card" onclick="goToLogin()">
+        <span style="font-size: 2.5rem;">🔐</span>
+        <h3>Login</h3>
+        <p>Masuk dengan akun Anda</p>
+        <button class="btn">Login</button>
+      </div>
+
+      <div class="mode-card" onclick="goToSignup()">
+        <span style="font-size: 2.5rem;">✍️</span>
+        <h3>Sign Up</h3>
+        <p>Buat akun baru sekarang</p>
+        <button class="btn">Daftar Sekarang</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 School Trip Archive Gallery | Dibuat oleh: S.H.A</p>
+    </div>
+  </div>
+
+  <script>
+    function goToGuest() {
+      fetch('/api/auth/guest', { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userMode', 'guest');
+          window.location.href = '/home';
+        })
+        .catch(err => console.error('Guest mode error:', err));
+    }
+
+    function goToLogin() {
+      window.location.href = '/login';
+    }
+
+    function goToSignup() {
+      window.location.href = '/signup';
+    }
+  </script>
+</body>
+</html>
