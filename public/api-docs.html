@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Documentation - School Trip Archive Gallery</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/api-docs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <button class="hamburger" id="hamburgerBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-title">
+        <i class="fas fa-book"></i> API Docs
+      </div>
+      <button class="profile-btn" id="profileBtn">
+        <i class="fas fa-user-circle"></i>
+      </button>
+    </div>
+  </nav>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Menu</h2>
+      <button class="close-btn" id="closeSidebar"><i class="fas fa-times"></i></button>
+    </div>
+    <ul class="menu-list">
+      <li><a href="/home"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="/upload"><i class="fas fa-cloud-upload-alt"></i> Upload</a></li>
+      <li><a href="/album"><i class="fas fa-images"></i> Album Image</a></li>
+      <li><a href="/api-docs"><i class="fas fa-book"></i> API</a></li>
+      <li><a href="/api-usage"><i class="fas fa-code"></i> API Docs</a></li>
+    </ul>
+  </aside>
+
+  <div class="profile-dropdown" id="profileDropdown">
+    <a href="/profile"><i class="fas fa-cog"></i> Settings</a>
+    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+
+  <main class="main-content">
+    <section class="api-docs-section">
+      <h1>📚 API Documentation</h1>
+      <p class="intro-text">Gunakan API kami untuk mengintegrasikan School Trip Archive Gallery ke aplikasi Anda. Semua endpoint mendukung berbagai metode HTTP.</p>
+
+      <!-- Authentication Endpoints -->
+      <div class="api-section">
+        <h2><i class="fas fa-lock"></i> Authentication Endpoints</h2>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="endpoint-path">/api/auth/signup</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Buat Akun Baru</h3>
+            <p>Daftarkan pengguna baru ke sistem.</p>
+            <h4>Request Body:</h4>
+            <pre><code>{\n  "fullName": "string (required)",\n  "nickname": "string (required)",\n  "age": "number (required)",\n  "username": "string (required)",\n  "password": "string (required)",\n  "email": "string (optional)"\n}</code></pre>
+            <h4>Response:</h4>
+            <pre><code>{\n  "success": true,\n  "message": "Account created successfully",\n  "token": "jwt_token_here",\n  "user": {\n    "id": "uuid",\n    "fullName": "string",\n    "nickname": "string",\n    "username": "string"\n  }\n}</code></pre>
+          </div>
+        </div>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="endpoint-path">/api/auth/login</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Login Akun</h3>
+            <p>Login dengan username dan password.</p>
+            <h4>Request Body:</h4>
+            <pre><code>{\n  "username": "string (required)",\n  "password": "string (required)"\n}</code></pre>
+            <h4>Response:</h4>
+            <pre><code>{\n  "success": true,\n  "message": "Login successful",\n  "token": "jwt_token_here",\n  "user": { ... }\n}</code></pre>
+          </div>
+        </div>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="endpoint-path">/api/auth/guest</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Guest Mode</h3>
+            <p>Masuk sebagai guest tanpa perlu login.</p>
+            <h4>Response:</h4>
+            <pre><code>{\n  "success": true,\n  "message": "Guest mode activated",\n  "token": "guest_token_here",\n  "user": { "id": "guest", "isGuest": true }\n}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Endpoints -->
+      <div class="api-section">
+        <h2><i class="fas fa-cloud-upload-alt"></i> Upload Endpoints</h2>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method post">POST</span>
+            <span class="endpoint-path">/api/upload/file</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Upload File/Image</h3>
+            <p>Upload gambar atau video ke sistem.</p>
+            <h4>Request (FormData):</h4>
+            <pre><code>- file: File (required)\n- fullName: string\n- description: string\n- visibility: "public" | "private"</code></pre>
+            <h4>Response:</h4>
+            <pre><code>{\n  "success": true,\n  "message": "File uploaded successfully",\n  "data": {\n    "id": "uuid",\n    "filename": "string",\n    "url": "/img/filename.jpg",\n    "uploadedAt": "ISO8601"\n  }\n}</code></pre>
+          </div>
+        </div>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="endpoint-path">/api/upload/list</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Daftar Upload</h3>
+            <p>Dapatkan list semua file yang telah diupload.</p>
+            <h4>Response:</h4>
+            <pre><code>{\n  "success": true,\n  "count": number,\n  "data": [ ... ]\n}</code></pre>
+          </div>
+        </div>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method put">PUT</span>
+            <span class="endpoint-path">/api/upload/:id</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Update Upload</h3>
+            <p>Ubah metadata file yang telah diupload.</p>
+            <h4>Request Body:</h4>
+            <pre><code>{\n  "visibility": "public" | "private",\n  "description": "string"\n}</code></pre>
+          </div>
+        </div>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method delete">DELETE</span>
+            <span class="endpoint-path">/api/upload/:id</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Hapus Upload</h3>
+            <p>Hapus file yang telah diupload.</p>
+            <h4>Response:</h4>
+            <pre><code>{\n  "success": true,\n  "message": "Upload deleted successfully"\n}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Endpoints -->
+      <div class="api-section">
+        <h2><i class="fas fa-images"></i> Gallery Endpoints</h2>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="endpoint-path">/api/gallery/public</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Gallery Publik</h3>
+            <p>Dapatkan galeri publik dengan pagination.</p>
+            <h4>Query Parameters:</h4>
+            <pre><code>- page: number (default: 1)\n- limit: number (default: 10)</code></pre>
+            <h4>Response:</h4>
+            <pre><code>{\n  "success": true,\n  "pagination": { ... },\n  "data": [ ... ]\n}</code></pre>
+          </div>
+        </div>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="endpoint-path">/api/gallery/random</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Random Images</h3>
+            <p>Dapatkan gambar random dari galeri.</p>
+            <h4>Query Parameters:</h4>
+            <pre><code>- count: number (default: 4, max: 20)</code></pre>
+          </div>
+        </div>
+
+        <div class="endpoint-card">
+          <div class="endpoint-header">
+            <span class="method get">GET</span>
+            <span class="endpoint-path">/api/gallery/search</span>
+          </div>
+          <div class="endpoint-body">
+            <h3>Search Gallery</h3>
+            <p>Cari gambar di galeri dengan berbagai filter.</p>
+            <h4>Query Parameters:</h4>
+            <pre><code>- q: string (search query)\n- author: string\n- minDate: ISO8601\n- maxDate: ISO8601\n- page: number\n- limit: number</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/utils.js"></script>
+</body>
+</html>
